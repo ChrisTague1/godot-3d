@@ -16,6 +16,15 @@ run/main_scene="uid://dpcxy1i282hy"
 config/features=PackedStringArray("4.4")
 config/icon="res://icon.webp"
 
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=540
+
+[dotnet]
+
+project/assembly_name="Squash the Creeps (3D)"
+
 [filesystem]
 
 import/blender/enabled=false
