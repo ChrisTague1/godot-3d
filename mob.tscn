@@ -6,10 +6,11 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_nokgg"]
 size = Vector3(1.61208, 0.825562, 2.09143)
 
-[node name="Mob" type="CharacterBody3D"]
+[node name="Mob" type="CharacterBody3D" groups=["mob"]]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_nokgg")
-min_speed = 5
-max_speed = 100
+max_speed = 20
 
 [node name="Pivot" type="Node3D" parent="."]
 
