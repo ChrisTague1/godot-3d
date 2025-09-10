@@ -3,6 +3,9 @@ extends CharacterBody3D
 @export var speed = 14
 @export var fall_acceleration = 75
 @export var jump_impluse = 20
+@export var bounce_impulse = 16
+
+signal hit
 
 var target_velocity = Vector3.ZERO
 
@@ -31,5 +34,25 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		target_velocity.y = jump_impluse
 	
+	for index in range(get_slide_collision_count()):
+		var collision = get_slide_collision(index)
+		var collider = collision.get_collider()
+		
+		if collider == null:
+			continue
+		
+		if collider.is_in_group("mob") and Vector3.UP.dot(collision.get_normal()) > 0.1:
+			collider.squash()
+			target_velocity.y = bounce_impulse
+			break
+	
 	velocity = target_velocity
 	move_and_slide()
+
+func die():
+	hit.emit()
+	queue_free()
+
+func _on_mob_detector_body_entered(body: Node3D) -> void:
+	print("Something got hit lol")
+	die()

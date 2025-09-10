@@ -3,7 +3,13 @@ extends CharacterBody3D
 @export var min_speed = 10
 @export var max_speed = 18
 
-func _physics_process(delta: float) -> void:
+signal squashed
+
+func squash():
+	squashed.emit()
+	queue_free()
+
+func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func initialize(start_position, player_position):
