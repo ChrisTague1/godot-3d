@@ -22,8 +22,8 @@ MusicPlayer="*res://music_player.tscn"
 
 [display]
 
-window/size/viewport_width=750
-window/size/viewport_height=500
+window/size/viewport_width=1000
+window/size/viewport_height=750
 
 [dotnet]
 

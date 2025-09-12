@@ -13,7 +13,8 @@ func _on_mob_timer_timeout() -> void:
 	mob_spawn_location.progress_ratio = randf()
 	
 	var player_position = $Player.position # could I not use this syntax above instead of the weird get_node function?
-	mob.initialize(mob_spawn_location.position, player_position)
+	var score = $UserInterface/ScoreLabel.score
+	mob.initialize(mob_spawn_location.position, player_position, score)
 	mob.squashed.connect($UserInterface/ScoreLabel._on_mob_squashed.bind())
 	
 	add_child(mob)
