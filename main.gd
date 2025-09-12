@@ -2,6 +2,8 @@ extends Node
 
 @export var mob_scene: PackedScene
 
+func _ready():
+	$UserInterface/Retry.hide()
 
 func _on_mob_timer_timeout() -> void:
 	var mob = mob_scene.instantiate()
@@ -12,9 +14,15 @@ func _on_mob_timer_timeout() -> void:
 	
 	var player_position = $Player.position # could I not use this syntax above instead of the weird get_node function?
 	mob.initialize(mob_spawn_location.position, player_position)
+	mob.squashed.connect($UserInterface/ScoreLabel._on_mob_squashed.bind())
 	
 	add_child(mob)
 
 
 func _on_player_hit() -> void:
 	$MobTimer.stop()
+	$UserInterface/Retry.show()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept") and $UserInterface/Retry.visible:
+		get_tree().reload_current_scene()
